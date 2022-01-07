@@ -8,7 +8,7 @@ class ListSpecificationsController {
   handle(req: Request, res: Response): Response {
     const specifications = this.listSpecificationsUseCase.execute();
 
-    return res.status(200).json({ specifications });
+    return res.status(200).json(specifications);
   }
 }
 

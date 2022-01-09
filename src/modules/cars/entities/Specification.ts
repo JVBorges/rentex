@@ -13,7 +13,8 @@ class Specification {
   description: String;
 
   @CreateDateColumn()
-  created_at: Date;
+  @Column({ name: 'created_at' })
+  createdAt: Date;
 
   constructor() {
     this.id = this.id ?? uuidV4();

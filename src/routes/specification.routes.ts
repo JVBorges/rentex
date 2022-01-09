@@ -1,14 +1,17 @@
 import { Router } from 'express';
+import { verifyToken } from '../middlewares/verifyToken';
 import { CreateSpecificationController } from '../modules/cars/useCases/createSpecification/CreateSpecificationController';
 import { ListSpecificationsController } from '../modules/cars/useCases/listSpecifications/ListSpecificationsController';
 
 const specificationsRoutes = Router();
 
+specificationsRoutes.use(verifyToken);
+
 const createSpecificationController = new CreateSpecificationController();
-specificationsRoutes.post('/', (req, res) => createSpecificationController.handle(req, res));
+specificationsRoutes.post('/', createSpecificationController.handle);
 
 const listSpecificationsController = new ListSpecificationsController();
-specificationsRoutes.get('/', (req, res) => listSpecificationsController.handle(req, res));
+specificationsRoutes.get('/', listSpecificationsController.handle);
 
 
 export { specificationsRoutes }

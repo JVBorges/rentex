@@ -24,6 +24,8 @@ export async function verifyToken(req: Request, res: Response, next: NextFunctio
     if (!user) 
       throw new AppError('User does not exists!', 401)
     
+    req.user = { id: userId };
+
     next();
   } catch (err) { throw new AppError('Invalid token!', 401) }
 }

@@ -1,5 +1,5 @@
 node_modules/
-temp/
+tmp/
 .vscode/
 dist/
 .env

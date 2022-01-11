@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { verifyToken } from '../middlewares/verifyToken';
+import { verifyToken } from '../middlewares/VerifyToken';
 import { CreateSpecificationController } from '../modules/cars/useCases/createSpecification/CreateSpecificationController';
 import { ListSpecificationsController } from '../modules/cars/useCases/listSpecifications/ListSpecificationsController';
 

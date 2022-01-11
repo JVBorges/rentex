@@ -2,10 +2,10 @@ import { Router } from 'express';
 import multer from 'multer';
 
 import uploadConfig from '../config/upload';
-import { verifyToken } from '../middlewares/verifyToken';
+import { verifyToken } from '../middlewares/VerifyToken';
 
 import { CreateCategoryController } from '../modules/cars/useCases/createCategory/CreateCategoryController';
-import { ImportCategoryController } from '../modules/cars/useCases/importCategory/importCategoryController';
+import { ImportCategoryController } from '../modules/cars/useCases/importCategory/ImportCategoryController';
 import { ListCategoriesController } from '../modules/cars/useCases/listCategories/ListCategoriesController';
 
 const categoriesRoutes = Router();

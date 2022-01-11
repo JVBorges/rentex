@@ -5,12 +5,12 @@ import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
 import morgan from "morgan"
 
-import "./database";
-import "./shared/container";
+import "../typeorm";
+import "../../container";
 
-import { AppError } from "./errors/AppError";
+import { AppError } from "../../errors/AppError";
 import { router } from "./routes";
-import swaggerFile from "./swagger.json";
+import swaggerFile from "../../../swagger.json";
 
 dotenv.config();
 const app = express();

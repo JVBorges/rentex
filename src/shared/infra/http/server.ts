@@ -5,7 +5,7 @@ import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
 import morgan from "morgan"
 
-import "../typeorm";
+import createConnection from "../typeorm";
 import "../../container";
 
 import { AppError } from "../../errors/AppError";
@@ -13,6 +13,7 @@ import { router } from "./routes";
 import swaggerFile from "../../../swagger.json";
 
 dotenv.config();
+createConnection();
 const app = express();
 
 app.use(express.json());

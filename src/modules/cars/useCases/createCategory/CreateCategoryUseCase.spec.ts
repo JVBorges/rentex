@@ -33,10 +33,6 @@ describe('Create category', () => {
   
       await createCategory.execute(category);
       await createCategory.execute(category);
-      
-      const createdCategory = await categoriesRepositoryInMemory.findByName(category.name);
-  
-      expect(createdCategory).toHaveProperty('id');
     }).rejects.toBeInstanceOf(AppError);
   });
 })

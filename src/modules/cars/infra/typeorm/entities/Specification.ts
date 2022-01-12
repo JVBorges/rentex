@@ -4,13 +4,13 @@ import { v4 as uuidV4 } from 'uuid';
 @Entity("specifications")
 class Specification {
   @PrimaryColumn()
-  id?: String;
+  id?: string;
 
   @Column()
-  name: String;
+  name: string;
 
   @Column()
-  description: String;
+  description: string;
 
   @CreateDateColumn()
   @Column({ name: 'created_at' })

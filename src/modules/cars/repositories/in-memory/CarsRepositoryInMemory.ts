@@ -1,3 +1,4 @@
+import { IFilterOptsDTO } from "../../../../shared/dtos/IFilterOptsDTO";
 import { Car } from "../../infra/typeorm/entities/Car";
 import { ICarsRepository, ICreateCarDTO,  } from "../ICarsRepository";
 
@@ -15,6 +16,10 @@ class CarsRepositoryInMemory implements ICarsRepository {
 
   async findByLicensePlate(licensePlate: string): Promise<Car> {
     return this.cars.find(car => car.licensePlate === licensePlate);
+  }
+
+  async listAvailable(filterOpts: IFilterOptsDTO): Promise<Car[]> {
+    return this.cars.filter(car => !filterOpts ? car.available : car[filterOpts.field] === filterOpts.value);
   }
 }
 

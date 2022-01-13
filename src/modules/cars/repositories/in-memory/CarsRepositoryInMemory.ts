@@ -18,6 +18,10 @@ class CarsRepositoryInMemory implements ICarsRepository {
     return this.cars.find(car => car.licensePlate === licensePlate);
   }
 
+  async findById(id: string): Promise<Car> {
+    return this.cars.find(car => car.id === id);    
+  }
+
   async listAvailable(filterOpts: IFilterOptsDTO): Promise<Car[]> {
     return this.cars.filter(car => !filterOpts ? car.available : car[filterOpts.field] === filterOpts.value);
   }

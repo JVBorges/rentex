@@ -20,6 +20,10 @@ class CarsRepository implements ICarsRepository {
     return await this.repository.findOne({ licensePlate });
   }
 
+  async findById(id: string): Promise<Car> {
+    return await this.repository.findOne({ id });
+  }
+
   async listAvailable(filterOpts?: IFilterOptsDTO): Promise<Car[]> {
     const carsQuery = this.repository.createQueryBuilder('c')
       .where('available = :available', { available: true });

@@ -25,6 +25,13 @@ class CarsRepositoryInMemory implements ICarsRepository {
   async listAvailable(filterOpts: IFilterOptsDTO): Promise<Car[]> {
     return this.cars.filter(car => !filterOpts ? car.available : car[filterOpts.field] === filterOpts.value);
   }
+
+  async updateAvailable(id: string, available: boolean): Promise<void> {
+
+    const index = this.cars.findIndex(car => car.id === id);
+    console.log(this.cars[index]);
+    this.cars[index].available = available;
+  }
 }
 
 export { CarsRepositoryInMemory }

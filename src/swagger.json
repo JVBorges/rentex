@@ -9,11 +9,46 @@
     }
   },
   "paths": {
+    "/session": {
+      "post": {
+        "tags": ["Session"],
+        "summary": "User authentication",
+        "description": "User authentication",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Email or password incorrect!"
+          }
+        }
+      }
+    },
     "/categories": {
       "post": {
         "tags": ["Category"],
         "summary": "Create a category",
         "description": "Create a new category",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "requestBody": { 
           "content": {
             "application/json": {
@@ -36,6 +71,9 @@
         "tags": ["Category"],
         "summary": "List all categories",
         "description": "List all categories",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -58,6 +96,9 @@
         "tags": ["Category"],
         "summary": "Upload a new category",
         "description": "Upload a new category",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "requestBody": { 
           "content": {
             "multipart/form-data": {
@@ -85,6 +126,9 @@
         "tags": ["Specification"],
         "summary": "Create a specification",
         "description": "Create a new specification",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -107,6 +151,9 @@
         "tags": ["Specification"],
         "summary": "List all specifications",
         "description": "List all specifications",
+        "security": [
+          { "bearerAuth": [] }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -120,6 +167,77 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/cars": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Create a car",
+        "description": "Create a new car",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "requestBody": { 
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Car"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Car already exists!"
+          }
+        }
+      }
+    },
+    "/cars/images/{id}": {
+      "post": {
+        "tags": ["Cars"],
+        "summary": "Upload images",
+        "description": "Upload car images",
+        "security": [
+          { "bearerAuth": [] }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Car id",
+            "required": true,
+            "shema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": { 
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
           }
         }
       }
@@ -146,6 +264,41 @@
         "description": {
           "type": "string"
         }
+      }
+    },
+    "Car": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "dailyRate": {
+          "type": "number"
+        },
+        "licensePlate": {
+          "type": "string"
+        },
+        "fineAmount": {
+          "type": "number"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

@@ -22,6 +22,10 @@ class DayjsDateProvider implements IDateProvider {
   compareInDays(startDate: Date, endDate: Date): number {
     return dayjs(this.convertToUTC(endDate)).diff(this.convertToUTC(startDate), "days"); 
   }
+
+  addDays(days: number): Date {
+    return dayjs().add(days, "days").toDate();
+  }
 }
 
 export { DayjsDateProvider };

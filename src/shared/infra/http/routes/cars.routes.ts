@@ -10,7 +10,7 @@ import uploadConfig from "../../../../config/upload";
 import { verifyAdmin } from "../middlewares/VerifyAdmin";
 import { verifyToken } from "../middlewares/VerifyToken";
 
-const uploadCarImages = multer(uploadConfig.upload('./tmp/cars'));
+const uploadCarImages = multer(uploadConfig);
 
 const carsRoutes = Router();
 

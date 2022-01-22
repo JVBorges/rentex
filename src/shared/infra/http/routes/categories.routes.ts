@@ -12,7 +12,7 @@ import { ListCategoriesController } from '../../../../modules/cars/useCases/list
 const categoriesRoutes = Router();
 categoriesRoutes.use(verifyToken);
 
-const uploadCategory = multer(uploadConfig.upload('./tmp/category'));
+const uploadCategory = multer(uploadConfig);
 
 const createCategoryController = new CreateCategoryController();
 categoriesRoutes.post('/', verifyAdmin, createCategoryController.handle);

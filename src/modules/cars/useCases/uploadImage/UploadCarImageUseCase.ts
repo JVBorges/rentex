@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import { IStorageProvider } from "../../../../shared/container/providers/StorageProvider/IStorageProvider";
 import { CarImage } from "../../infra/typeorm/entities/CarImage";
 import { ICarsImagesRepository } from "../../repositories/ICarsImagesRepository";
 
@@ -10,12 +11,16 @@ interface IRequest {
 @injectable()
 class UploadCarImageUseCase {
 
-  constructor(@inject('CarsImagesRepository') private carsImagesRepository: ICarsImagesRepository) {}
+  constructor(
+    @inject('CarsImagesRepository') private carsImagesRepository: ICarsImagesRepository,
+    @inject('StorageProvider') private storageProvider: IStorageProvider
+  ) {}
 
-  async execute({ carId, imagesName }: IRequest): Promise<CarImage[]> {
-    return await Promise.all(
-      imagesName.map(imageName => this.carsImagesRepository.create(carId, imageName))
-    );
+  async execute({ carId, imagesName }: IRequest): Promise<void> {
+    await Promise.all([
+      imagesName.map(imageName => this.carsImagesRepository.create(carId, imageName)),
+      imagesName.map(imageName => this.storageProvider.save(imageName, "cars")),
+    ]);
   }
 }
 

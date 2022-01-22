@@ -1,17 +1,23 @@
+import { DayjsDateProvider } from "../../../../shared/container/providers/DateProvider/implementations/DayjsDateProvider";
 import { AppError } from "../../../../shared/errors/AppError";
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { UsersRepositoryInMemory } from "../../repositories/in-memory/UsersRepositoryInMemory";
+import { UsersTokensRepositoryInMemory } from "../../repositories/in-memory/UsersTokensRepositoryInMemory";
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 
 let authenticateUser: AuthenticateUserUseCase;
 let createUser: CreateUserUseCase;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
+let usersTokensRepositoryInMemory: UsersTokensRepositoryInMemory; 
+let dateProvider: DayjsDateProvider;
 
 describe('Authenticate user', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
-    authenticateUser = new AuthenticateUserUseCase(usersRepositoryInMemory);
+    usersTokensRepositoryInMemory = new UsersTokensRepositoryInMemory();
+    dateProvider = new DayjsDateProvider();
+    authenticateUser = new AuthenticateUserUseCase(usersRepositoryInMemory, usersTokensRepositoryInMemory, dateProvider);
     createUser = new CreateUserUseCase(usersRepositoryInMemory);
   });
 
@@ -32,7 +38,7 @@ describe('Authenticate user', () => {
     expect(result).toHaveProperty('token');
   });
 
-  it('Should not be able to authenticate an user with a incorrent password', () => {
+  it('Should not be able to authenticate an user with a incorrect password', () => {
     expect(async () => {
       const user: ICreateUserDTO = {
         driverLicense: '123456',

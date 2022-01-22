@@ -6,4 +6,6 @@ import { EtherealMailProvider } from "./MailProvider/implementations/EtherealMai
 
 container.registerSingleton<IDateProvider>("DayjsProvider", DayjsDateProvider);
 
-container.registerInstance<IMailProvider>("EtherealProvider", new EtherealMailProvider());
+if (process.env.NODE_ENV !== 'test') {
+  container.registerInstance<IMailProvider>("EtherealProvider", new EtherealMailProvider());
+}

@@ -1,6 +1,5 @@
 import { inject, injectable } from "tsyringe";
 import { IStorageProvider } from "../../../../shared/container/providers/StorageProvider/IStorageProvider";
-import { CarImage } from "../../infra/typeorm/entities/CarImage";
 import { ICarsImagesRepository } from "../../repositories/ICarsImagesRepository";
 
 interface IRequest {

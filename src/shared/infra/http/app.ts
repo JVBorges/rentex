@@ -12,9 +12,12 @@ import { AppError } from "../../errors/AppError";
 import { router } from "./routes";
 import swaggerFile from "../../../swagger.json";
 import upload from "../../../config/upload";
+import rateLimiter from "./middlewares/RateLimiter";
 
 createConnection();
 const app = express();
+
+app.use(rateLimiter);
 
 app.use(express.json());
 

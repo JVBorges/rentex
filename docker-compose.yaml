@@ -12,19 +12,25 @@ services:
       - POSTGRES_DB=rentex
     volumes:
       - pgdata:/data/postgres
-  app:
-    build: .
-    container_name: rentex
-    restart: always
-    ports: 
-      - 3000:3000
-      - 9229:9229
-    volumes:
-      - .:/usr/app
-    links: 
-      - postgres
-    depends_on:
-      - postgres
+  
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+
+  # app:
+  #   build: .
+  #   container_name: rentex
+  #   restart: always
+  #   ports: 
+  #     - 3000:3000
+  #     - 9229:9229
+  #   volumes:
+  #     - .:/usr/app
+  #   links: 
+  #     - postgres
+  #   depends_on:
+  #     - postgres
 
 volumes:
   pgdata:
